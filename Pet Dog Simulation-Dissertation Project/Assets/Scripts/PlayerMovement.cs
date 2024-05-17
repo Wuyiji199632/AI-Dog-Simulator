@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 12f;
     private Rigidbody rb;
     private float xRotation = 0f,yRotation=0f;
+    public GameObject caressingHand;
+
 
     void Start()
     {
@@ -16,7 +18,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    
+    private void Update()
+    {
+        ToggleCaressingHand();
+    }
+
     private void FixedUpdate()
     {
         if(WorldManager.instance.paused) return; // If the game is paused, don't update the player's movement
@@ -61,5 +67,26 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = Camera.main.transform.right * horizontalMovement + Camera.main.transform.forward * verticalMovement;
         rb.velocity = movement;
         transform.Translate(rb.velocity, Space.World);
+    }
+
+    private void ToggleCaressingHand()
+    {
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f))
+        {
+            if(hit.collider.gameObject.tag == "Dog")
+            {
+                caressingHand.SetActive(true);
+                caressingHand.transform.position = hit.point;
+                caressingHand.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+            else
+            {
+                caressingHand.SetActive(false);
+            }
+        }
+        else
+        {
+            caressingHand.SetActive(false);
+        }
     }
 }
