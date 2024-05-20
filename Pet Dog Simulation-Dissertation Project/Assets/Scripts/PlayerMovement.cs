@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ToggleCaressingHand()
     {
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 1f))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f))
         {
             if(hit.collider.gameObject.tag == "Dog")
             {

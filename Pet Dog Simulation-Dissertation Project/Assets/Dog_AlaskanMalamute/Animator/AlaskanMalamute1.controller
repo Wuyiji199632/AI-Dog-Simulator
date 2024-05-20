@@ -5081,13 +5081,13 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6899985146719500080}
-    m_Position: {x: 50, y: 120, z: 0}
+    m_Position: {x: 330, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4107123138248665567}
-    m_Position: {x: 50, y: 120, z: 0}
+    m_Position: {x: 380, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7697913853542165771}
-    m_Position: {x: 50, y: 120, z: 0}
+    m_Position: {x: -320, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8219817048106653621}
     m_Position: {x: 50, y: 120, z: 0}
