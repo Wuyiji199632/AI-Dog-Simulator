@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class WorldManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class WorldManager : MonoBehaviour
     public static WorldManager instance;
 
     public GameObject pauseMenu;
+
+    public TextMeshProUGUI pickupReminderText;
 
     private void Awake()
     {

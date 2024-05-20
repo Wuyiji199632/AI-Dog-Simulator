@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float xRotation = 0f,yRotation=0f;
     public GameObject caressingHand;
 
+    public List<GameObject> itemsPickedUp = new List<GameObject>();
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        ToggleCaressingHand();
+        ToggleCaressingHand();DetectObjectToPickup();
     }
 
     private void FixedUpdate()
@@ -89,5 +90,33 @@ public class PlayerMovement : MonoBehaviour
         {
             caressingHand.SetActive(false);
         }
+    }
+
+    private void DetectObjectToPickup()
+    {
+        bool isDetecting = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 5f);
+       
+      
+        if (isDetecting)
+        {
+            bool detected = hit.collider.gameObject.GetComponent<PickupItem>() != null;
+           
+            WorldManager.instance.pickupReminderText.gameObject.SetActive(detected);
+            WorldManager.instance.pickupReminderText.text = detected ? "Press E to pick up " + hit.collider.gameObject.GetComponent<PickupItem>().itemName : "";
+
+            if(detected && Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("Picked up " + hit.collider.gameObject.GetComponent<PickupItem>().itemName);
+                hit.collider.gameObject.SetActive(false);
+                hit.collider.gameObject.transform.SetParent(this.transform);
+                hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 1);
+                itemsPickedUp.Add(hit.collider.gameObject);
+                
+            }
+
+        }
+
+       
     }
 }
