@@ -71,13 +71,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void ToggleCaressingHand()
     {
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 1f))
         {
             if(hit.collider.gameObject.tag == "Dog")
             {
                 caressingHand.SetActive(true);
                 caressingHand.transform.position = hit.point;
                 caressingHand.transform.rotation = Quaternion.LookRotation(hit.normal);
+                Debug.Log("Caressing dog!");
             }
             else
             {
