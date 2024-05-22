@@ -2,27 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : State
+public class GreetState : State
 {
-    public IdleState(DogFSM fsm) : base(fsm)
+    public GreetState(DogFSM fsm) : base(fsm)
     {
     }
 
     public override void Enter()
     {
-        Debug.Log("Entering Idle State");
-        
+        fsm.animator.SetTrigger("Greet");
     }
 
     public override void Execute()
     {
-        Debug.Log("I am idling!");
+        Debug.Log("I am greeting!");
     }
 
     public override void Exit()
     {
        
     }
-
-   
 }

@@ -13,6 +13,9 @@ public class WorldManager : MonoBehaviour
 
     public TextMeshProUGUI pickupReminderText;
 
+    public List<Image> iconsForPickUp = new List<Image>();
+
+    
     private void Awake()
     {
         if (instance == null)
@@ -27,11 +30,7 @@ public class WorldManager : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
 
     // Update is called once per frame
     void Update()

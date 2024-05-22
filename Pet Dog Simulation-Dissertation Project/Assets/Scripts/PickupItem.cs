@@ -5,4 +5,6 @@ using UnityEngine;
 public class PickupItem : MonoBehaviour
 {
    public string itemName;
+
+    public bool alreadyPickedUp = false;
 }

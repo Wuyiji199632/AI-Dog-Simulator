@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private float xRotation = 0f,yRotation=0f;
     public GameObject caressingHand;
+
+    public DogFSM dogFSM;
 
     public List<GameObject> itemsPickedUp = new List<GameObject>();
 
@@ -79,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
                 caressingHand.SetActive(true);
                 caressingHand.transform.position = hit.point;
                 caressingHand.transform.rotation = Quaternion.LookRotation(hit.normal);
+                dogFSM = hit.collider.gameObject.GetComponent<DogFSM>();
+                dogFSM.ChangeState(new GreetState(dogFSM));
                 Debug.Log("Caressing dog!");
             }
             else
@@ -107,16 +112,32 @@ public class PlayerMovement : MonoBehaviour
             if(detected && Input.GetKeyDown(KeyCode.E))
             {
                 Debug.Log("Picked up " + hit.collider.gameObject.GetComponent<PickupItem>().itemName);
-                hit.collider.gameObject.SetActive(false);
+                hit.collider.gameObject.SetActive(false);                
                 hit.collider.gameObject.transform.SetParent(this.transform);
                 hit.collider.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 hit.collider.gameObject.transform.localPosition = new Vector3(0, 0, 1);
+                hit.collider.gameObject.GetComponent<PickupItem>().alreadyPickedUp = true;
                 itemsPickedUp.Add(hit.collider.gameObject);
-                
+
+                UpdateItemIcons();
+
             }
-
+          
         }
+      
+    }
 
-       
+    private void UpdateItemIcons()
+    {
+        foreach (var itemIcon in WorldManager.instance.iconsForPickUp)
+        {
+            foreach (var item in itemsPickedUp)
+            {
+                if (itemIcon.name == item.name)
+                {
+                    itemIcon.color = new Color(1, 1, 1, 1); // Fully illuminate the icon
+                }
+            }
+        }
     }
 }
