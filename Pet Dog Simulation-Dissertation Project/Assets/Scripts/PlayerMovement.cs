@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        ToggleCaressingHand();DetectObjectToPickup();
+        ToggleCaressingHand();DetectObjectToPickup(); SelectPickupItems();
     }
 
     private void FixedUpdate()
@@ -101,13 +101,13 @@ public class PlayerMovement : MonoBehaviour
     {
         bool isDetecting = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 5f);
        
-      
+            
         if (isDetecting)
         {
+
             bool detected = hit.collider.gameObject.GetComponent<PickupItem>() != null;
            
-            WorldManager.instance.pickupReminderText.gameObject.SetActive(detected);
-            WorldManager.instance.pickupReminderText.text = detected ? "Press E to pick up " + hit.collider.gameObject.GetComponent<PickupItem>().itemName : "";
+           
 
             if(detected && Input.GetKeyDown(KeyCode.E))
             {
@@ -122,7 +122,10 @@ public class PlayerMovement : MonoBehaviour
                 UpdateItemIcons();
 
             }
-          
+            bool showReminder = detected && !hit.collider.gameObject.GetComponent<PickupItem>().alreadyPickedUp;
+            WorldManager.instance.pickupReminderText.gameObject.SetActive(showReminder);
+            WorldManager.instance.pickupReminderText.text = showReminder ? "Press E to pick up " + hit.collider.gameObject.GetComponent<PickupItem>().itemName : "";
+
         }
       
     }
@@ -139,5 +142,34 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void SelectPickupItems()
+    {
+
+        Dictionary<KeyCode, string> keyItemMap = new Dictionary<KeyCode, string>
+    {
+        { KeyCode.Alpha1, "Bone" },
+        { KeyCode.Alpha2, "Baseball" },
+        { KeyCode.Alpha3, "Food" },
+        { KeyCode.Alpha4, "Water" }
+    };
+
+        foreach (var item in itemsPickedUp)
+        {
+            if (item.GetComponent<PickupItem>().alreadyPickedUp)
+            {
+                foreach (var entry in keyItemMap)
+                {
+                    if (Input.GetKeyDown(entry.Key))
+                    {
+                        item.gameObject.SetActive(item.name == entry.Value);
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
