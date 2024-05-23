@@ -16,10 +16,14 @@ public class PlayerMovement : MonoBehaviour
 
     public List<GameObject> itemsPickedUp = new List<GameObject>();
 
+    public string currentItemName=string.Empty;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked; // Lock the cursor to the center of the screen
         rb = GetComponent<Rigidbody>();
+        InvokeRepeating(nameof(DetectObjectToPickup), 0.1f, 0.1f);
+        InvokeRepeating(nameof(SelectPickupItems), 0.1f, 0.1f);
     }
 
     private void Update()
@@ -180,12 +184,31 @@ public class PlayerMovement : MonoBehaviour
                     if (Input.GetKeyDown(entry.Key))
                     {
                         item.gameObject.SetActive(item.name == entry.Value && !item.gameObject.activeSelf);
+                        currentItemName = item.name;
                     }
                 }
             }
         }
 
+    }
 
+    private void UseItem()
+    {
+        switch (currentItemName)
+        {
+            case "Bone":
+                Debug.Log("Throwing bone");
+                break;
+                case "Baseball":
+                Debug.Log("Throwing baseball");
+                break;
+                case "Food":
+                Debug.Log("Feeding dog");
+                break;
+                case "Water":
+                Debug.Log("Giving water to dog");
+                break;
 
+        }
     }
 }

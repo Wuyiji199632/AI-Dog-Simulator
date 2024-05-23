@@ -33722,7 +33722,7 @@ Transform:
   m_GameObject: {fileID: 2099062332}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0, y: 0.928, z: 36.8}
+  m_LocalPosition: {x: -0, y: 1.518, z: 36.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -33746,6 +33746,7 @@ MonoBehaviour:
   caressingHand: {fileID: 3459354269174588810}
   dogFSM: {fileID: 919132149418323714}
   itemsPickedUp: []
+  currentItemName: 
 --- !u!136 &2099062340
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -33766,7 +33767,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1.9
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2099062341
@@ -36723,9 +36724,11 @@ GameObject:
   - component: {fileID: 1481619546308823731}
   - component: {fileID: 8572432064629825141}
   - component: {fileID: 1519345273483297547}
+  - component: {fileID: 8572432064629825142}
+  - component: {fileID: 8572432064629825143}
   m_Layer: 0
   m_Name: Food
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36898,7 +36901,7 @@ GameObject:
   - component: {fileID: 3734181427973850186}
   m_Layer: 0
   m_Name: Bone
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37022,9 +37025,11 @@ GameObject:
   - component: {fileID: 7405865192365973658}
   - component: {fileID: 816243758401785268}
   - component: {fileID: 9172528955885470367}
+  - component: {fileID: 9172528955885470368}
+  - component: {fileID: 9172528955885470369}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38817,7 +38822,7 @@ Transform:
   m_GameObject: {fileID: 3298274590257582095}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -0.0008760327, z: 32.623}
+  m_LocalPosition: {x: 2.97, y: -0.0008760327, z: 36.35}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -38961,7 +38966,7 @@ Transform:
   m_GameObject: {fileID: 3931472677855278603}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9957515, y: -0, z: 32.52675}
+  m_LocalPosition: {x: 5.849, y: -0, z: 36.53}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -40135,6 +40140,47 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8572432064629825142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298274590257582095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d13898b7e9c9b14a91217ede96ebdaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Food
+  alreadyPickedUp: 0
+--- !u!54 &8572432064629825143
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3298274590257582095}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8572880535598192350
 GameObject:
   m_ObjectHideFlags: 0
@@ -40333,7 +40379,7 @@ GameObject:
   - component: {fileID: 8933520637655738258}
   m_Layer: 0
   m_Name: Baseball
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40592,6 +40638,47 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5243637740095923077, guid: a76d20db3d5df44498ceed17248755e6, type: 3}
+--- !u!114 &9172528955885470368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931472677855278603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d13898b7e9c9b14a91217ede96ebdaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Water
+  alreadyPickedUp: 0
+--- !u!54 &9172528955885470369
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3931472677855278603}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &9184958575738905642
 GameObject:
   m_ObjectHideFlags: 0
