@@ -11,6 +11,7 @@ public class IdleState : State
     public override void Enter()
     {
         Debug.Log("Entering Idle State");
+        fsm.animator.SetTrigger("Idle");
         
     }
 

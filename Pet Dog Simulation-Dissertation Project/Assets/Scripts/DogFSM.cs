@@ -11,6 +11,8 @@ public class DogFSM : MonoBehaviour
 
     public PlayerMovement player;
 
+    public bool closeToPlayer=false;
+
     void Start()
     {
         currentState = new IdleState(this);
@@ -20,11 +22,18 @@ public class DogFSM : MonoBehaviour
     void Update()
     {
         float distance = Vector3.Distance(player.transform.position, transform.parent.position);
-
-        if (distance <= 8)
+       
+        closeToPlayer = distance <= 3;
+        if (closeToPlayer)
         {
             LookAtPlayer();
             Debug.Log("Player is close");
+
+        }
+        else
+        {
+            if(!(currentState is IdleState))
+            ChangeState(new IdleState(this));
         }
        
       
@@ -54,7 +63,10 @@ public class DogFSM : MonoBehaviour
         Vector3 direction = (player.transform.position - transform.parent.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, lookRotation, Time.deltaTime * 10f);
-       
+        //ChangeState(new TurnState(this));
+
+     
+
     }
 
     public bool isAlignedWithPlayer()

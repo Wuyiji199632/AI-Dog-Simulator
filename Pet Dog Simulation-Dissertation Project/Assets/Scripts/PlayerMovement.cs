@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ToggleCaressingHand()
     {
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 3f))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 1.5f))
         {
             if(hit.collider.gameObject.tag == "Dog")
             {
@@ -83,17 +83,32 @@ public class PlayerMovement : MonoBehaviour
                 caressingHand.transform.position = hit.point;
                 caressingHand.transform.rotation = Quaternion.LookRotation(hit.normal);
                 dogFSM = hit.collider.gameObject.GetComponent<DogFSM>();
-                dogFSM.ChangeState(new GreetState(dogFSM));
+                DogFSM hitDogFSM = hit.collider.gameObject.GetComponent<DogFSM>();
+                if (dogFSM != hitDogFSM || !(dogFSM.currentState is GreetState))
+                {
+                    dogFSM = hitDogFSM;
+                    dogFSM.ChangeState(new GreetState(dogFSM));
+                    
+                }
                 Debug.Log("Caressing dog!");
             }
             else
             {
                 caressingHand.SetActive(false);
+                Debug.Log("stop caressing dog!");
+                if (!(dogFSM.currentState is IdleState))
+                {
+                    dogFSM.ChangeState(new IdleState(dogFSM));
+                }
             }
         }
         else
         {
             caressingHand.SetActive(false);
+            if (!(dogFSM.currentState is IdleState))
+            {
+                dogFSM.ChangeState(new IdleState(dogFSM));
+            }
         }
     }
 
@@ -136,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
         {
             foreach (var item in itemsPickedUp)
             {
+                //itemsPickedUp[itemsPickedUp.Count - 1].gameObject.SetActive(true);
                 if (itemIcon.name == item.name)
                 {
                     itemIcon.color = new Color(1, 1, 1, 1); // Fully illuminate the icon
@@ -163,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (Input.GetKeyDown(entry.Key))
                     {
-                        item.gameObject.SetActive(item.name == entry.Value);
+                        item.gameObject.SetActive(item.name == entry.Value && !item.gameObject.activeSelf);
                     }
                 }
             }
